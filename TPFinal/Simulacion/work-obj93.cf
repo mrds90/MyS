@@ -1,0 +1,7 @@
+v 4
+file . "../Fuentes/crc_tb.vhd" "e3448c819f992e36ee9b698af19f81b0db60ae91" "20220605123448.775":
+  entity crc_tb at 1( 0) + 0 on 69;
+  architecture foo of crc_tb at 8( 100) + 0 on 70;
+file . "../Fuentes/crc.vhd" "b978d3f3085bcaf2727155c05b6a7b6b76ff700b" "20220605123448.773":
+  entity crc at 8( 176) + 0 on 67;
+  architecture crc_arch of crc at 23( 457) + 0 on 68;
