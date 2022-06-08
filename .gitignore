@@ -1,0 +1,10 @@
+*/Sintesis/*
+TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/bd/*
+TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/drivers/*
+TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/example_designs/*
+TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/xgui/*
+TPFinal/IP_REPOS/CRC_IP/ip_user_files/*
+TPFinal/IP_REPOS/CRC_IP/managed_ip_project/*
+!TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/src
+!TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/hdl
+*.xml
