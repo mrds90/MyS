@@ -35,10 +35,12 @@ begin
         wait until rising_edge(clk);
       end loop;
       rst <= '0';
-      crc_en <= '1';
+      
       for i in 1 to 15 loop
         data_in <= std_logic_vector(to_unsigned (i * 10, 8));
-        if (i = 6) then
+        if( i = 2) then
+          crc_en <= '1';
+        elsif (i = 6) then
           crc_en <= '0';
         elsif (i = 8) then
           rst <= '1';

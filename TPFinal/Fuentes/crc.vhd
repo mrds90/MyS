@@ -60,17 +60,26 @@ architecture crc_arch of crc is
 
   signal crc_o : std_logic_vector (15 downto 0);
 
+
 begin
 
   -- crc_out <= not reverse_vector(crc16(reverse_vector(data_in), x"FFFF"));
 
   process (clk) -- ADDED process
+    variable crc_en0 : std_logic := '0';
+    variable crc_en1 : std_logic := '0';
   begin
     if rising_edge(clk) then
       if rst = '1' then
         crc_o <= x"FFFF";
-      elsif crc_en = '1' then
-        crc_o <= crc16(reverse_vector(data_in), crc_o);
+        crc_en0 := '0';
+        crc_en1 := '0';
+      else 
+        crc_en1 := crc_en0;
+        crc_en0 := crc_en;
+        if (not crc_en1 and crc_en0) = '1' then -- detect rising edge of crc_en
+          crc_o <= crc16(reverse_vector(data_in), crc_o);
+        end if;
       end if;
     end if;
   end process;
