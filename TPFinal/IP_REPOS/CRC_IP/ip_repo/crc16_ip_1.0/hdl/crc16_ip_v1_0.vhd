@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity crc_ip_v1_0 is
+entity crc16_ip_v1_0 is
 	generic (
 		-- Users to add parameters here
 
@@ -44,12 +44,12 @@ entity crc_ip_v1_0 is
 		s_axi_rvalid	: out std_logic;
 		s_axi_rready	: in std_logic
 	);
-end crc_ip_v1_0;
+end crc16_ip_v1_0;
 
-architecture arch_imp of crc_ip_v1_0 is
+architecture arch_imp of crc16_ip_v1_0 is
 
 	-- component declaration
-	component crc_ip_v1_0_S_AXI is
+	component crc16_ip_v1_0_S_AXI is
 		generic (
 		C_S_AXI_DATA_WIDTH	: integer	:= 32;
 		C_S_AXI_ADDR_WIDTH	: integer	:= 4
@@ -77,12 +77,12 @@ architecture arch_imp of crc_ip_v1_0 is
 		S_AXI_RVALID	: out std_logic;
 		S_AXI_RREADY	: in std_logic
 		);
-	end component crc_ip_v1_0_S_AXI;
+	end component crc16_ip_v1_0_S_AXI;
 
 begin
 
 -- Instantiation of Axi Bus Interface S_AXI
-crc_ip_v1_0_S_AXI_inst : crc_ip_v1_0_S_AXI
+crc16_ip_v1_0_S_AXI_inst : crc16_ip_v1_0_S_AXI
 	generic map (
 		C_S_AXI_DATA_WIDTH	=> C_S_AXI_DATA_WIDTH,
 		C_S_AXI_ADDR_WIDTH	=> C_S_AXI_ADDR_WIDTH
