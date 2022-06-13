@@ -37,16 +37,14 @@ begin
       rst <= '0';
       
       for i in 1 to 15 loop
-        data_in <= std_logic_vector(to_unsigned (i * 10, 8));
-        if( i = 2) then
+        if((i mod 2) = 0) then
+          data_in <= std_logic_vector(to_unsigned (i * 10, 8));
           crc_en <= '1';
-        elsif (i = 6) then
+        else
           crc_en <= '0';
-        elsif (i = 8) then
+        end if;
+        if (i = 8) then
           rst <= '1';
-        elsif (i = 10) then
-
-          crc_en <= '1';
         elsif (i = 11) then
           rst <= '0';
         end if;

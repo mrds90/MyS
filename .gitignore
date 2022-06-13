@@ -8,3 +8,9 @@ TPFinal/IP_REPOS/CRC_IP/managed_ip_project/*
 !TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/src
 !TPFinal/IP_REPOS/CRC_IP/ip_repo/crc_ip_1.0/hdl
 *.xml
+/**/*.sv
+/**/*.tcl
+/**/*.mdd
+/**/*.json
+/**/*.vcd
+/**/*.cf
