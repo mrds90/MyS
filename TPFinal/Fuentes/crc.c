@@ -25,6 +25,9 @@
 
 int main(void) {
     uint8_t data_in = 0;
+    xil_printf("-- Start Selftest --\r\n");
+    enc_status = CRC16_IP_Reg_SelfTest(XPAR_CRC16_IP_0_S_AXI_BASEADDR);
+    xil_printf("-- Selftest Finished --\r\n");
     while (1) {
         data_in = (data_in + 1) % VECTOR_SIZE;
         No_Reset_CRC_IP();

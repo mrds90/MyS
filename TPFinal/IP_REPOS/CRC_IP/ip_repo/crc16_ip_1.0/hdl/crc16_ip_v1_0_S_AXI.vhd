@@ -370,7 +370,7 @@ begin
 	      when b"10" =>
 	        reg_data_out <= slv_reg2;
 	      when b"11" =>
-	        reg_data_out <= slv_reg3;
+	        reg_data_out <= crc_result;
 	      when others =>
 	        reg_data_out  <= (others => '0');
 	    end case;
