@@ -20,25 +20,35 @@
 #define Disable_CRC_IP()        (CRC16_IP_mWriteReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_ENABLE_REG, 0))
 #define Reset_CRC_IP()          (CRC16_IP_mWriteReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_RESET_REG, 1))
 #define No_Reset_CRC_IP()       (CRC16_IP_mWriteReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_RESET_REG, 0))
-#define Set_Data_CRC_IP(data)   (CRC16_IP_mWriteReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_IN_REG, data))
+#define Set_Data_CRC_IP(data)   (CRC16_IP_mWriteReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_IN_REG, (data)))
 #define Get_CRC_IP()            (CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, CRC_RESULT_REG))
 
+
+static uint8_t data_in = 0;
+
 int main(void) {
-    uint8_t data_in = 0;
-    xil_printf("-- Start Selftest --\r\n");
-    enc_status = CRC16_IP_Reg_SelfTest(XPAR_CRC16_IP_0_S_AXI_BASEADDR);
-    xil_printf("-- Selftest Finished --\r\n");
+
+	Reset_CRC_IP();
+    Disable_CRC_IP();
+    No_Reset_CRC_IP();
+    xil_printf("PROGRAM START\r\n");
+
     while (1) {
-        data_in = (data_in + 1) % VECTOR_SIZE;
-        No_Reset_CRC_IP();
-        Set_Data_CRC_IP((uint32_t)data_in);
-        Enable_CRC_IP();
-        sleep(1);
-        xil_printf("CRC: %d\r\n", CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, DATA_ENABLE_REG));
-        Disable_CRC_IP();
-        if(data_in == 0) {
-            Reset_CRC_IP();
-        }
+    	data_in = inbyte();
+    	if(data_in == 'r') {
+    	    Reset_CRC_IP();
+    	    xil_printf("RESET CRC \r\n");
+    	}
+    	else {
+            No_Reset_CRC_IP();
+            Set_Data_CRC_IP(data_in);
+            xil_printf("DATA WRITTEN %.2X\r\n", CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR,DATA_IN_REG));
+            Enable_CRC_IP();
+            uint32_t crc = Get_CRC_IP();
+            xil_printf("CRC: %.4X\r\n", crc);
+            Disable_CRC_IP();
+            xil_printf("*************\r\n");
+    	}
     }
 }
 
