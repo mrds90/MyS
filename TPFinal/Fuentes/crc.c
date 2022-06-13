@@ -10,7 +10,7 @@
 #include "sleep.h"
 #include <stdint.h>
 
-#define VECTOR_SIZE  25
+
 #define DATA_IN_REG             CRC16_IP_S_AXI_SLV_REG0_OFFSET
 #define DATA_ENABLE_REG         CRC16_IP_S_AXI_SLV_REG1_OFFSET
 #define DATA_RESET_REG          CRC16_IP_S_AXI_SLV_REG2_OFFSET
@@ -24,8 +24,6 @@
 #define Get_CRC_IP()            (CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR, CRC_RESULT_REG))
 
 
-static uint8_t data_in = 0;
-
 int main(void) {
 
 	Reset_CRC_IP();
@@ -34,7 +32,7 @@ int main(void) {
     xil_printf("PROGRAM START\r\n");
 
     while (1) {
-    	data_in = inbyte();
+    	uint8_t data_in = inbyte();
     	if(data_in == 'r') {
     	    Reset_CRC_IP();
     	    xil_printf("RESET CRC \r\n");
@@ -42,7 +40,7 @@ int main(void) {
     	else {
             No_Reset_CRC_IP();
             Set_Data_CRC_IP(data_in);
-            xil_printf("DATA WRITTEN %.2X\r\n", CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR,DATA_IN_REG));
+            xil_printf("DATA WRITTEN '%c'\r\n", CRC16_IP_mReadReg(XPAR_CRC16_IP_0_S_AXI_BASEADDR,DATA_IN_REG));
             Enable_CRC_IP();
             uint32_t crc = Get_CRC_IP();
             xil_printf("CRC: %.4X\r\n", crc);
